@@ -1,0 +1,26 @@
+Steps for VPC
+
+1) Create a VPC
+2) Provide the CIDR block address 10.0.0.0/16
+3) Create two subnets one in each AZ
+4) Provide the CIDR block address 10.0.1.0/24 & 10.0.2.0/24
+5) Create a new internet gateway and attach it to VPC
+6) Create a new route table - myinternetrouteout-name
+7) Add a route out to the internet 0.0.0.0/0 & ::/0
+8) Configure the subnet associations and add public facing subnet to the route table called myinternetrouteout-name
+9) Go to subnets and modify auto assign public Ip to Yes
+10) To test this add an EC2 instance and SSH into the instance and try updating the kernel
+11) add another instance to the private subnet and choose the default security group for the VPC
+12) create another security group called myrdssg - ssh,https,http,icmp,mysql - from 10.0.1.0/24
+13) Copy the private key stored in .pem file to a new file created inside the root directory of public instance.
+14) change the permissions on the .pem file with command chmod 400 mypv.pem
+15) Use this private key to now SSH into the private instance from the public instance.
+16) Now try updating the private server kernel using the command yum update -y
+17) Go to VPC create a new NAT Gateway
+18) Add the route in the default private subnet to route all requests to the NAT Gateway that is in the public subnet 0.0.0.0/0 - Nat Gateway
+19) Wait till the NAT gateway is created
+20) Now run the update command in the private instance. It works beautifully.
+
+
+yum install java-1.8.0 -y
+sudo alternatives --config java
